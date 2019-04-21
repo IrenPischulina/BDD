@@ -28,3 +28,46 @@ def step_impl(context):
             if i != 3 and j != 3:
                 assert game.field[i][j] == j+i*4+1
     assert game.field[3][3] == 0
+
+#2
+@given("I have created field")
+def step_impl(context):
+    global game
+    game = Game()
+    assert game is not None
+    assert game.field is not None
+
+@when("I do move down")
+def step_impl(context):
+    global game
+    global game_field_buf
+    game_field_buf = copy.deepcopy(game.field)
+    game.move_down()
+
+def get_zero_place(field):
+    for i in range(4):
+        for j in range(4):
+            if field[i][j] == 0:
+                return [i, j]
+
+@then("Cell above the zero cell move down and the zero cell move up")
+def step_impl(context):
+    global game
+    global game_field_buf
+
+    zero_place_before = get_zero_place(game_field_buf)
+    zero_place = get_zero_place(game.field)
+
+    if zero_place_before[0] == 0:
+        assert game_field_buf == game.field
+    else:
+        assert zero_place[1] == zero_place_before[1]
+        assert zero_place[0] == zero_place_before[0] - 1
+
+        for i in range(4):
+            for j in range(4):
+                if [i, j] != zero_place_before and [i, j] != zero_place:
+                    assert game_field_buf[i][j] == game.field[i][j]
+
+        assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
+            zero_place_before[1]]
