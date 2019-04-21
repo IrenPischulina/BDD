@@ -71,3 +71,5 @@ def step_impl(context):
 
         assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
             zero_place_before[1]]
+
+#3
