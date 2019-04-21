@@ -161,3 +161,28 @@ def step_impl(context):
 
         assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
             zero_place_before[1]]
+
+#4
+@when("I mix game field")
+def step_impl(context):
+    global game
+    global game_field_buf
+    game_field_buf = copy.deepcopy(game.field)
+    game.mix()
+
+@then("I have changed game field and no one cell is missing")
+def step_impl(context):
+    global game
+    global game_field_buf
+    assert game.field != game_field_buf
+
+    cell_counter = []
+    for i in range(16):
+        cell_counter.append(0)
+
+    for i in range(4):
+        for j in range(4):
+            cell_counter[game.field[i][j]] += 1
+
+    for i in range(16):
+        assert cell_counter[i] == 1
