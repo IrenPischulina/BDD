@@ -24,3 +24,8 @@ Feature: Checking game creation and working
      Given I have created field
      When I do up move
      Then Cell under the zero cell move up and the zero cell move down
+#4
+  Scenario: Checking mixing game field
+      Given I have created field
+      When I mix game field
+      Then I have changed game field and no one cell is missing
