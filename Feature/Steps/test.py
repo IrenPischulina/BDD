@@ -73,3 +73,91 @@ def step_impl(context):
             zero_place_before[1]]
 
 #3
+@when("I do left move")
+def step_impl(context):
+    global game
+    global game_field_buf
+    game_field_buf = copy.deepcopy(game.field)
+    game.move_left()
+
+@when("I do right move")
+def step_impl(context):
+    global game
+    global game_field_buf
+    game_field_buf = copy.deepcopy(game.field)
+    game.move_right()
+
+@when("I do up move")
+def step_impl(context):
+    global game
+    global game_field_buf
+    game_field_buf = copy.deepcopy(game.field)
+    game.move_up()
+
+@then("Cell right from the zero cell move left and the zero cell move right")
+def step_impl(context):
+    global game
+    global game_field_buf
+
+    zero_place_before = get_zero_place(game_field_buf)
+    zero_place = get_zero_place(game.field)
+
+    if zero_place_before[0] == 3:
+        assert game_field_buf == game.field
+    else:
+        assert zero_place[1] == zero_place_before[1] + 1
+        assert zero_place[0] == zero_place_before[0]
+
+        for i in range(4):
+            for j in range(4):
+                if [i, j] != zero_place_before and [i, j] != zero_place:
+                    assert game_field_buf[i][j] == game.field[i][j]
+
+        assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
+            zero_place_before[1]]
+
+
+@then("Cell left from the zero cell move right and the zero cell move left")
+def step_impl(context):
+    global game
+    global game_field_buf
+
+    zero_place_before = get_zero_place(game_field_buf)
+    zero_place = get_zero_place(game.field)
+
+    if zero_place_before[0] == 0:
+        assert game_field_buf == game.field
+    else:
+        assert zero_place[1] == zero_place_before[1] - 1
+        assert zero_place[0] == zero_place_before[0]
+
+        for i in range(4):
+            for j in range(4):
+                if [i, j] != zero_place_before and [i, j] != zero_place:
+                    assert game_field_buf[i][j] == game.field[i][j]
+
+        assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
+            zero_place_before[1]]
+
+
+@then("Cell under the zero cell move up and the zero cell move down")
+def step_impl(context):
+    global game
+    global game_field_buf
+
+    zero_place_before = get_zero_place(game_field_buf)
+    zero_place = get_zero_place(game.field)
+
+    if zero_place_before[0] == 3:
+        assert game_field_buf == game.field
+    else:
+        assert zero_place[1] == zero_place_before[1] + 1
+        assert zero_place[0] == zero_place_before[0]
+
+        for i in range(4):
+            for j in range(4):
+                if [i, j] != zero_place_before and [i, j] != zero_place:
+                    assert game_field_buf[i][j] == game.field[i][j]
+
+        assert game_field_buf[zero_place[0]][zero_place[1]] == game.field[zero_place_before[0]][
+            zero_place_before[1]]
