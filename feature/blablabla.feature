@@ -29,3 +29,10 @@ Feature: Checking game creation and working
       Given I have created field
       When I mix game field
       Then I have changed game field and no one cell is missing
+#5
+  Scenario: Checking winning game
+      Given I have created field
+      When I do move down
+      Then The game is not wined
+      When I do up move
+      Then The game is wined

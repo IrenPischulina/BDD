@@ -1,5 +1,5 @@
 from behave import *
-from game4 import Game
+from game import Game
 import copy
 game = None
 game_field_buf = None
