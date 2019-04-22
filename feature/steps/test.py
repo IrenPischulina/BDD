@@ -186,3 +186,14 @@ def step_impl(context):
 
     for i in range(16):
         assert cell_counter[i] == 1
+
+#5
+@then("The game is not wined")
+def step_impl(context):
+    global game
+    assert game.isWin() == False
+
+@then("The game is wined")
+def step_impl(context):
+    global game
+    assert game.isWin()
